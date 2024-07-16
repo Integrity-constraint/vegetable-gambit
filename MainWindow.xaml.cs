@@ -30,7 +30,9 @@ namespace ObjectClassificationVegie
                 string rootFile = "";
                 var folderDialog = new OpenFileDialog
                 {
-                    // дополнительные приколы
+                    
+                    Filter = "Image files (*.jpg;*.jpeg;*.png)|*.jpg;*.jpeg;*.png|All files (*.*)|*.*",
+                    Title = "Выберите изображение"
                 };
 
                 if (folderDialog.ShowDialog() == true)
@@ -38,10 +40,27 @@ namespace ObjectClassificationVegie
                     var folderFile = folderDialog.FileName;
                     rootFile = folderFile;
                     path.Text = rootFile;
+
                   
+                    var bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(rootFile);
+                    bitmap.EndInit();
+                    img.Source = bitmap;
+                }
+                else
+                {
+                  
+                    return;
                 }
 
-                var imageBytes = File.ReadAllBytes(path.Text);
+                if (!File.Exists(rootFile))
+                {
+                    MessageBox.Show("Выбранный файл не существует.");
+                    return;
+                }
+
+                var imageBytes = File.ReadAllBytes(rootFile);
                 ОвощнойГамбит.ModelInput simpleData = new ОвощнойГамбит.ModelInput()
                 {
                     ImageSource = imageBytes,
@@ -49,11 +68,11 @@ namespace ObjectClassificationVegie
                 var result = ОвощнойГамбит.Predict(simpleData);
                 predict.Content = result.PredictedLabel;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                MessageBox.Show(e.ToString());
+                MessageBox.Show(ex.ToString());
             }
-           
+
 
         }
     }
