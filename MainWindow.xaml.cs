@@ -1,4 +1,5 @@
 ﻿using Microsoft.Win32;
+using System;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -59,21 +60,31 @@ namespace ObjectClassificationVegie
                     MessageBox.Show("Выбранный файл не существует.");
                     return;
                 }
+                ClassificationAsynSpecialForZuevAndrewCamelCaseCanGoFuckItself(rootFile, predict);
 
-                var imageBytes = File.ReadAllBytes(rootFile);
-                ОвощнойГамбит.ModelInput simpleData = new ОвощнойГамбит.ModelInput()
-                {
-                    ImageSource = imageBytes,
-                };
-                var result = ОвощнойГамбит.Predict(simpleData);
-                predict.Content = result.PredictedLabel;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
 
+          
+        }
 
+
+        async void ClassificationAsynSpecialForZuevAndrewCamelCaseCanGoFuckItself(string root, Label predict)
+        {
+            await Task.Run(() =>
+            {
+                var imageBytes = File.ReadAllBytes(root);
+                ОвощнойГамбит.ModelInput simpleData = new ОвощнойГамбит.ModelInput()
+                {
+                    ImageSource = imageBytes,
+                };
+                var result = ОвощнойГамбит.Predict(simpleData);
+                predict.Content = result.PredictedLabel;
+            });
+           Close();
         }
     }
 }
