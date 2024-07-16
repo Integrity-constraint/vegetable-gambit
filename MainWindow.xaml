@@ -1,0 +1,16 @@
+﻿<Window x:Class="ObjectClassificationVegie.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ObjectClassificationVegie"
+        mc:Ignorable="d"
+        Title="Овощной детектор" ResizeMode="NoResize" Height="401" Width="353">
+    <Grid>
+        <Button Click="classify" Content="Найти и опознать" HorizontalAlignment="Center" Margin="0,333,0,0" VerticalAlignment="Top" Width="333"/>
+        <TextBox Name="path" HorizontalAlignment="Center" ToolTip="Вы можете вставить абсолютный путь или выбрать через диалогове окно" Margin="0,310,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="333"/>
+        <Label Name="predict" Content="" HorizontalAlignment="Left" Margin="10,260,0,0" VerticalAlignment="Top" Width="254" FontSize="20" FontFamily="Candara"/>
+        <Image Name="img" Margin="12,16,11,134"/>
+
+    </Grid>
+</Window>
